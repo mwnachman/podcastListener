@@ -1,9 +1,26 @@
 import React from 'react'
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
 
-const Home = () => {
+const Home = ({name}) => {
   return (
-    <div> home </div>
+    <div>
+      <div>
+        Hi {name || 'there'}!
+      </div>
+    </div>
   )
 }
 
-export default Home
+Home.propTypes = {
+  name: PropTypes.string
+}
+
+const ConnectedHome = connect(
+  state => ({
+    top12: state.podcast.top12,
+    name: state.user.name
+  })
+)(Home)
+
+export default ConnectedHome
