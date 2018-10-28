@@ -1,5 +1,5 @@
-{
-  parser: "babel-eslint",
+module.exports = {
+  "parser": "babel-eslint",
   "plugins": [
     "react"
   ],
