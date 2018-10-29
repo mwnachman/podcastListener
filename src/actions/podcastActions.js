@@ -1,10 +1,3 @@
-const defaultState = {
-  top12: []
-}
+import * as config from '../../config/config.json'
 
-export default function podcast(state = defaultState, action) {
-  switch (action.type) {
-    default:
-      return state
-  }
-}
+
