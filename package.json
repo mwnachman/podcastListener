@@ -4,7 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server --config ./webpack.config.js --mode development",
+    "build:js": "webpack --config webpack.config.js",
+    "build": "npm run clean && npm run copy && npm run build:js",
+    "clean": "rm -rf build/$NODE_ENV && rm -rf node_modules && npm cache clean && npm install --no-optional",
+    "copy": "mkdir -p build/$NODE_ENV && cp -r src/index.html src/assets build/$NODE_ENV",
+    "copy:dev": "NODE_ENV=development npm run copy",
+    "start": "npm run copy:dev && NODE_ENV=development webpack-dev-server --progress --colors --hot --config ./webpack.dev.js --mode development",
     "lint": "eslint --ext .js --ext .jsx src"
   },
   "repository": {
@@ -22,18 +27,23 @@
     "@babel/core": "^7.1.2",
     "@babel/preset-env": "^7.1.0",
     "@babel/preset-react": "^7.0.0",
+    "@babel/plugin-proposal-object-rest-spread": "^7.0.0",
+    "@babel/polyfill": "^7.0.0",
     "babel-eslint": "^10.0.1",
     "babel-loader": "^8.0.4",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "css-loader": "^1.0.0",
     "eslint": "^5.7.0",
     "eslint-loader": "^2.1.1",
     "eslint-plugin-react": "^7.11.1",
+    "less": "^2.7.2",
+    "less-loader": "^4.1.0",
+    "less-plugin-clean-css": "^1.5.1",
+    "mini-css-extract-plugin": "^0.4.4",
     "pre-commit": "^1.2.2",
-    "react": "^16.5.2",
-    "react-dom": "^16.5.2",
     "react-hot-loader": "^4.3.11",
     "style-loader": "^0.23.1",
-    "webpack": "^4.21.0",
+    "url-loader": "^1.1.2",
     "webpack-cli": "^3.1.2",
     "webpack-dev-server": "^3.1.9"
   },
@@ -44,12 +54,17 @@
     ]
   },
   "dependencies": {
-    "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "prop-types": "^15.6.2",
+    "react": "^16.5.2",
+    "react-bootstrap": "^0.31.5",
+    "react-dom": "^16.5.2",
     "react-redux": "^5.1.0",
     "react-router-dom": "^4.3.1",
-    "redux": "^4.0.1",
-    "redux-thunk": "^2.3.0"
+    "redux": "^3.7.2",
+    "redux-thunk": "^2.3.0",
+    "webpack": "^4.21.0",
+    "webpack-merge": "^4.1.4",
+    "whatwg-fetch": "^2.0.1"
   },
   "pre-commit": [
     "lint"
